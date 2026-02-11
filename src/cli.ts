@@ -1664,6 +1664,11 @@ async function runWebMode(config: Config, overridePort?: number): Promise<void> 
   console.log(`\n${c.cyan}🌐 웹 UI 모드${c.reset}`);
   console.log(`${c.dim}브라우저에서 http://localhost:${port} 접속${c.reset}\n`);
 
+  // Extension 서버를 웹 UI 시작 시 바로 시작 (Extension 모드 연결 대기)
+  if (!wss) {
+    await startExtensionServer();
+  }
+
   let currentTelegramBot: Awaited<ReturnType<typeof startTelegramBot>> | null = null;
 
   await startWebClient({
