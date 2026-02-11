@@ -172,6 +172,7 @@ function sendExtCommand(command: string, params: Record<string, unknown> = {}): 
 let extensionConnectedOnce = false;
 
 function startExtensionServer(): Promise<void> {
+  if (wss) return Promise.resolve();
   return new Promise((resolve) => {
     wss = new WebSocketServer({ port: 9876 });
 
